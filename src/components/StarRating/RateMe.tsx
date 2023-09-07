@@ -1,4 +1,5 @@
 import { Fragment, HTMLProps, useId } from "react";
+import cx from "classnames";
 import s from "./rate.module.scss";
 
 export type RatingType = 1 | 2 | 3 | 4 | 5;
@@ -12,7 +13,12 @@ export type RateMeProps = Omit<
   onChange: (rating: RatingType) => void;
 };
 
-export const RateMe = ({ value, onChange, ...props }: RateMeProps) => {
+export const RateMe = ({
+  value,
+  onChange,
+  className,
+  ...props
+}: RateMeProps) => {
   const ratingId = useId();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +27,7 @@ export const RateMe = ({ value, onChange, ...props }: RateMeProps) => {
   };
 
   return (
-    <fieldset className={s.rating}>
+    <fieldset className={cx(s.rating, className)}>
       {[5, 4, 3, 2, 1].map((num) => (
         <Fragment key={`${ratingId}-${num}`}>
           <input

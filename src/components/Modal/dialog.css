@@ -12,8 +12,8 @@ dialog {
 .dialogWrapper {
   max-inline-size: min(90vw, 600px);
   min-inline-size: 300px;
-  max-block-size: 80vh;
-  max-block-size: 80dvb;
+  max-block-size: 95vh;
+  max-block-size: 95dvb;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }

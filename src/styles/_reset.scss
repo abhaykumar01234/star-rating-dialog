@@ -52,6 +52,7 @@ button,
 textarea,
 select {
   font: inherit;
+  color: inherit;
 }
 
 button {
@@ -77,4 +78,9 @@ p {
 a {
   text-decoration: none;
   color: currentColor;
+}
+
+// Safari
+fieldset {
+  background-color: transparent;
 }

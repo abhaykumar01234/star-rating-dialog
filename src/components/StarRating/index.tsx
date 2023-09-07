@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, useId, Fragment } from "react";
 import { Modal } from "../Modal";
 import { RateMe } from "./RateMe";
 import { RATING, WHAT_WAS_GOOD_LIST } from "./constants";
@@ -7,6 +7,7 @@ import s from "./ratemodal.module.scss";
 
 export const StarRating = ({ name }: { name: string }) => {
   const [rating, setRating] = useState<keyof typeof RATING>(1);
+  const ratingId = useId();
 
   const handleChange = (rating: keyof typeof RATING) => setRating(rating);
 
@@ -15,7 +16,12 @@ export const StarRating = ({ name }: { name: string }) => {
       <h3>Let Us Know How We Are Doing</h3>
       <Modal.Root>
         <Modal.Trigger>
-          <RateMe name={name} value={rating} onChange={handleChange} />
+          <RateMe
+            name={name}
+            value={rating}
+            onChange={handleChange}
+            className={s.pageRating}
+          />
         </Modal.Trigger>
         <Modal.Content className={s.modalContent}>
           <Modal.Header>&nbsp;</Modal.Header>
@@ -37,15 +43,17 @@ export const StarRating = ({ name }: { name: string }) => {
 
             <div className={cx("inline", s.checkItemsBox)}>
               {WHAT_WAS_GOOD_LIST.map((item, idx) => (
-                <CheckItem {...item} key={name + idx} />
+                <CheckItem {...item} key={name + idx} id={ratingId} />
               ))}
             </div>
-            <textarea
-              name="comment"
-              cols={18}
-              rows={4}
-              placeholder="Would Like To Hear More From You.."
-            ></textarea>
+            <div>
+              <textarea
+                name="comment"
+                cols={18}
+                rows={3}
+                placeholder="Would Like To Hear More From You.."
+              ></textarea>
+            </div>
             <Modal.Close className={s.btnSubmit}>Submit Feedback</Modal.Close>
           </Modal.Body>
         </Modal.Content>
@@ -56,10 +64,11 @@ export const StarRating = ({ name }: { name: string }) => {
 };
 
 const CheckItem = ({
+  id,
   name,
   img,
   selected_img,
-}: (typeof WHAT_WAS_GOOD_LIST)[number]) => {
+}: (typeof WHAT_WAS_GOOD_LIST)[number] & { id: string }) => {
   const [checked, setChecked] = useState(false);
   const handleChange = () => setChecked((s) => !s);
 
@@ -67,11 +76,11 @@ const CheckItem = ({
     <Fragment>
       <input
         type="checkbox"
-        id={name}
+        id={`${id}-${name}`}
         checked={checked}
         onChange={handleChange}
       />
-      <label htmlFor={name}>
+      <label htmlFor={`${id}-${name}`}>
         <figure className="stack">
           <div className={s.img}>
             <img src={checked ? selected_img : img} alt={name} />
