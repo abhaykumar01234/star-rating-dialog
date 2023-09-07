@@ -1,40 +1,43 @@
-$cardBgGradient: var(--cardBgGradient);
-$cardBoxShadow: var(--cardBoxShadow);
-$starBoxWH: 2.5rem;
-$starWH: 26px;
-$emptyStarBg: linear-gradient(333deg, #bfc3cf 144%, #e5e6eb -76%);
-$fullStarBg: linear-gradient(136deg, #04acbb -50%, #264a9f 152%);
-
 .rating {
+  --size: 40px;
+  border: none;
   display: inline-flex;
   flex-direction: row-reverse;
-  gap: 0.25rem;
-  border: none;
+  gap: 4px;
 
   input {
     display: none;
   }
+
+  label {
+    border-radius: 50%;
+    box-shadow: var(--cardBoxShadow);
+    background-image: var(--cardBgGradient);
+    cursor: pointer;
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+    place-items: center;
+
+    .star {
+      width: calc(26 / 40 * var(--size));
+      height: calc(26 / 40 * var(--size));
+      fill: url(#greyStar);
+    }
+  }
 }
 
-.rating label {
-  border-radius: 50%;
-  box-shadow: $cardBoxShadow;
-  background-image: $cardBgGradient;
-  cursor: pointer;
-  width: $starBoxWH;
+.rating > input:checked ~ label,
+.rating:not(:checked) > :is(label:hover, label:hover ~ label) {
+  .star {
+    fill: url(#blueStar);
+  }
 }
 
-.rating label::before {
-  content: "\f005";
-  font-family: fontAwesome;
-  font-size: $starWH;
-  background: $emptyStarBg;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-}
-
-.rating label:hover::before,
-.rating label:hover ~ label::before,
-.rating input:checked ~ label::before {
-  background: $fullStarBg;
+.rating > :is(input:checked ~ label:hover, input:checked ~ label:hover ~ label), /* hover current star when changing rating */
+.rating > label:hover ~ input:checked ~ label /* lighten current selection */ {
+  .star {
+    opacity: 0.7;
+  }
 }

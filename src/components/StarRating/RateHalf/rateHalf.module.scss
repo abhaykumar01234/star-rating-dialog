@@ -16,7 +16,6 @@
     box-shadow: var(--cardBoxShadow);
     cursor: pointer;
     width: var(--size);
-    height: var(--size);
     aspect-ratio: 1 / 1;
 
     display: grid;
@@ -27,30 +26,24 @@
       clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
     }
 
-    &::before {
-      content: "\f005";
-      font-family: fontAwesome;
-      font-size: calc(26 / 40 * var(--size));
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(333deg, #bfc3cf 144%, #e5e6eb -76%);
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent;
+    .star {
+      width: calc(26 / 40 * var(--size));
+      height: calc(26 / 40 * var(--size));
+      fill: url(#greyStar);
     }
   }
 }
 
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > :is(label:hover, label:hover ~ label) /* hover current star */ {
-  &:before {
-    background: linear-gradient(136deg, #04acbb -50%, #264a9f 152%);
+  .star {
+    fill: url(#blueStar);
   }
 } /* hover previous stars in list */
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label {
-  &:before {
-    opacity: 0.6;
+.rating > :is(input:checked ~ label:hover, input:checked ~ label:hover ~ label), /* hover current star when changing rating */
+.rating > label:hover ~ input:checked ~ label /* lighten current selection */ {
+  .star {
+    opacity: 0.7;
   }
 }

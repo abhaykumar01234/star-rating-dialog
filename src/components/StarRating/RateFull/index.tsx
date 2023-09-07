@@ -1,4 +1,6 @@
-import { Fragment, HTMLProps, useId } from "react";
+import { Fragment, useId } from "react";
+import type { ChangeEvent, HTMLProps } from "react";
+import { ReactComponent as Star } from "../Icons/star.svg";
 import cx from "classnames";
 import s from "./rate.module.scss";
 
@@ -21,7 +23,7 @@ export const RateFull = ({
 }: RateFullProps) => {
   const ratingId = useId();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rating = parseInt(e.target.value) as RatingType;
     onChange(rating);
   };
@@ -38,7 +40,9 @@ export const RateFull = ({
             onChange={handleChange}
             {...props}
           />
-          <label htmlFor={`${ratingId}-${num}`} />
+          <label htmlFor={`${ratingId}-${num}`}>
+            <Star className={s.star} />
+          </label>
         </Fragment>
       ))}
     </fieldset>

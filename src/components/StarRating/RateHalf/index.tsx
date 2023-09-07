@@ -1,6 +1,6 @@
 import { Fragment, useId } from "react";
 import type { ChangeEvent, HTMLProps } from "react";
-// import { ReactComponent as Star } from "../Icons/star.svg";
+import { ReactComponent as Star } from "../Icons/star.svg";
 import cx from "classnames";
 import s from "./rateHalf.module.scss";
 
@@ -28,32 +28,33 @@ export const RateHalf = ({
 
   return (
     <fieldset className={cx(s.rating, className)}>
-      {Array.from({ length: 5 }, (_, idx) => {
-        const num = 5 - idx;
-        return (
-          <Fragment key={num}>
-            <input
-              type="radio"
-              id={`${ratingId}-${num}`}
-              value={num}
-              onChange={handleChange}
-              checked={num === value}
-              {...props}
-            />
-            <label htmlFor={`${ratingId}-${num}`} />
-            <input
-              type="radio"
-              id={`${ratingId}-${num - 0.5}`}
-              value={num - 0.5}
-              onChange={handleChange}
-              checked={num - 0.5 === value}
-              {...props}
-            />
-            <label htmlFor={`${ratingId}-${num - 0.5}`} className={s.half} />
-            {num > 1 ? <span>&nbsp;</span> : <></>}
-          </Fragment>
-        );
-      })}
+      {[5, 4, 3, 2, 1].map((num) => (
+        <Fragment key={`${ratingId}-${num}`}>
+          <input
+            type="radio"
+            id={`${ratingId}-${num}`}
+            value={num}
+            checked={num === value}
+            onChange={handleChange}
+            {...props}
+          />
+          <label htmlFor={`${ratingId}-${num}`}>
+            <Star className={s.star} />
+          </label>
+          <input
+            type="radio"
+            id={`${ratingId}-${num - 0.5}`}
+            value={num - 0.5}
+            checked={num - 0.5 === value}
+            onChange={handleChange}
+            {...props}
+          />
+          <label htmlFor={`${ratingId}-${num - 0.5}`} className={s.half}>
+            <Star className={s.star} />
+          </label>
+          {num > 1 ? <span>&nbsp;</span> : <></>}
+        </Fragment>
+      ))}
     </fieldset>
   );
 };
