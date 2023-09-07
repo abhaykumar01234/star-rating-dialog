@@ -4,7 +4,7 @@ import s from "./rate.module.scss";
 
 export type RatingType = 1 | 2 | 3 | 4 | 5;
 
-export type RateMeProps = Omit<
+export type RateFullProps = Omit<
   HTMLProps<HTMLInputElement>,
   "name" | "value" | "onChange"
 > & {
@@ -13,12 +13,12 @@ export type RateMeProps = Omit<
   onChange: (rating: RatingType) => void;
 };
 
-export const RateMe = ({
+export const RateFull = ({
   value,
   onChange,
   className,
   ...props
-}: RateMeProps) => {
+}: RateFullProps) => {
   const ratingId = useId();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
