@@ -1,0 +1,62 @@
+$cardBgGradient: var(--cardBgGradient);
+$cardBoxShadow: var(--cardBoxShadow);
+$starBoxWH: 2.5rem;
+$starWH: 26px;
+$emptyStarBg: linear-gradient(333deg, #bfc3cf 144%, #e5e6eb -76%);
+$fullStarBg: linear-gradient(136deg, #04acbb -50%, #264a9f 152%);
+
+.rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  border: none;
+
+  input {
+    display: none;
+  }
+}
+
+%icon {
+  content: "\f005";
+  font-family: fontAwesome;
+  font-size: $starWH;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.rating label {
+  border-radius: 50%;
+  box-shadow: $cardBoxShadow;
+  background-image: $cardBgGradient;
+  cursor: pointer;
+  width: $starBoxWH;
+  margin: 0.2rem;
+  border: 0;
+  @include flex-center();
+}
+
+.rating label::before {
+  @extend %icon;
+  @include flex-center();
+  background: $emptyStarBg;
+}
+
+.rating label::after {
+  @extend %icon;
+  position: absolute;
+  @include flex-center();
+  background: $fullStarBg;
+  opacity: 0;
+}
+
+.rating label:hover::after,
+.rating label:hover ~ label::after,
+.rating input:checked ~ label::after {
+  opacity: 1;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.828" height="22.828" viewBox="0 0 22.828 22.828">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:rgba(13,71,148,.9);stroke-miterlimit:10;stroke-width:4px;opacity:.95}
+        </style>
+    </defs>
+    <g id="prefix__Group_1606" data-name="Group 1606" transform="translate(1.414 1.414)">
+        <path id="prefix__Line_203" d="M0 0L20 20" class="prefix__cls-1" data-name="Line 203"/>
+        <path id="prefix__Line_204" d="M20 0L0 20" class="prefix__cls-1" data-name="Line 204"/>
+    </g>
+</svg>

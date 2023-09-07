@@ -1,0 +1,17 @@
+dialog {
+  background: var(--cardBgGradient);
+  box-shadow: var(--cardBoxShadow);
+}
+
+dialog::backdrop {
+  background: color-mix(in srgb, #f5f5f5 70%, transparent);
+}
+
+dialog .header {
+  box-shadow: none;
+}
+
+dialog .header .closeIcon {
+  color: var(--clr-primary);
+  box-shadow: var(--cardBoxShadow);
+}

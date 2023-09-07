@@ -1,0 +1,118 @@
+dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  box-shadow: 4px 5px 20px 5px rgb(0 0 0 / 0.3);
+  transition: opacity 500ms ease;
+}
+
+.dialogWrapper {
+  max-inline-size: min(90vw, 600px);
+  min-inline-size: 300px;
+  max-block-size: 80vh;
+  max-block-size: 80dvb;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+dialog.dialogWrapper.large,
+dialog.dialogWrapper.video,
+dialog.dialogWrapper.large .dialogWrapper {
+  max-inline-size: min(90vw, 1000px);
+}
+
+dialog.dialogWrapper.video .body {
+  padding: 0;
+  overflow-y: hidden;
+}
+
+dialog .header,
+dialog .body,
+dialog .footer {
+  padding: 1rem;
+}
+
+dialog .header {
+  box-shadow: 0 2px 5px 2px rgb(0 0 0 / 0.1);
+  position: relative;
+  padding-right: calc(35px + 1rem);
+}
+
+dialog .header .closeIcon {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.25em;
+  color: #002856;
+  background: #f5f5f5;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+}
+
+dialog .header .closeIcon:hover {
+  box-shadow: 0 0 2px 2px rgb(0 0 0 / 0.1);
+}
+
+dialog .body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+dialog .footer {
+  background: #002856;
+  box-shadow: 0 -2px 5px 2px rgb(0 0 0 / 0.1);
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+dialog[open] {
+  opacity: 1;
+}
+
+dialog:not([open]) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open] {
+    animation: slideInUp 300ms ease-in-out forwards;
+  }
+  dialog[data-state="closed"] {
+    animation: scaleDown 500ms cubic-bezier(0.25, 0, 0.3, 1) forwards;
+    animation-timing-function: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleDown {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+  }
+}

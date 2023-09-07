@@ -1,0 +1,83 @@
+:root {
+  --clr-primary: #071e54;
+  --clr-grey: #d8d8d8;
+  --clr-white: #fff;
+  --pageSide: max(calc(50vw - 600px), 1rem);
+  --cardBgGradient: linear-gradient(to right bottom, #eff0f3, #e5e6eb);
+  --cardBoxShadow: -3px -3px 6px #fff, 3px 3px 6px #bfc3cf;
+}
+
+@import "reset";
+
+.inline {
+  display: flex;
+  align-items: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mq-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &.center {
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .mq-inline {
+    flex-direction: row;
+
+    &.center {
+      justify-content: center;
+    }
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  padding-inline: var(--pageSide);
+  background: #f5f5f5;
+
+  & > :is(header, footer) {
+    padding-block: 1rem;
+  }
+
+  & > footer {
+    box-shadow: 3px 3px 3px #cecece, -3px -3px 3px var(--clr-white);
+    margin-inline: calc(var(--pageSide) * -1);
+    padding-inline: var(--pageSide);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    figcaption {
+      text-align: center;
+      line-height: 1.2;
+      color: color-mix(in srgb, var(--clr-primary) 80%, transparent);
+    }
+
+    .icon {
+      box-shadow: inset 3px 3px 3px #cecece,
+        inset -3px -3px 3px var(--clr-white);
+      width: 60px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+
+      svg {
+        width: 32px;
+      }
+    }
+  }
+}
