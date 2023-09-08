@@ -1,0 +1,28 @@
+.starBox {
+  --size: 40px;
+  display: flex;
+  gap: 4px;
+
+  label {
+    border-radius: 50%;
+    box-shadow: var(--cardBoxShadow);
+    background-image: var(--cardBgGradient);
+    cursor: pointer;
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+}
+
+.star {
+  width: calc(26 / 40 * var(--size));
+  height: calc(26 / 40 * var(--size));
+
+  &:not(.partial) path {
+    fill: url(#greyStar);
+    &.active {
+      fill: url(#blueStar);
+    }
+  }
+}

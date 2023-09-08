@@ -1,25 +1,29 @@
 import { Modal } from "~/components/Modal";
-import { RateFull } from "~/components/StarRating/RateFull";
+import {
+  RateMe,
+  type RatingType,
+  type HalfRatingType,
+  type RateMeProps,
+} from "~/components/StarRating/RateMe";
 import { RATING, WHAT_WAS_GOOD_LIST } from "../constants";
 import { CheckItem } from "./CheckItem";
 import cx from "classnames";
 import s from "./rateDialog.module.scss";
-import { useState, useId } from "react";
+import { useId } from "react";
 
-export const RatingDialog = ({ name }: { name: string }) => {
-  const [rating, setRating] = useState<keyof typeof RATING>(1);
+export const RatingDialog = <T extends RatingType | HalfRatingType>({
+  name,
+  ...props
+}: RateMeProps<T>) => {
   const ratingId = useId();
+  const rating = parseInt(
+    `${props.value === 0 ? 1 : props.value + 0.5}`
+  ) as keyof typeof RATING;
 
-  const handleChange = (rating: keyof typeof RATING) => setRating(rating);
   return (
     <Modal.Root>
       <Modal.Trigger>
-        <RateFull
-          name={name}
-          value={rating}
-          onChange={handleChange}
-          className={s.pageRating}
-        />
+        <RateMe name={name} {...props} className={s.pageRating} />
       </Modal.Trigger>
       <Modal.Content className={s.modalContent}>
         <Modal.Header>&nbsp;</Modal.Header>
@@ -32,11 +36,8 @@ export const RatingDialog = ({ name }: { name: string }) => {
             />
           </div>
           <h3>{RATING[rating].reaction.title}</h3>
-          <RateFull
-            name={name + "modal"}
-            value={rating}
-            onChange={handleChange}
-          />
+          <RateMe name={`${name}-dialog`} {...props} />
+          <p>You rated : {props.value} of 5 stars</p>
           <p>{RATING[rating].reaction.subtitle}</p>
 
           <div className={cx("inline", s.checkItemsBox)}>
