@@ -54,4 +54,8 @@
     transform: translateX(var(--halfSize));
     clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
   }
+
+  span {
+    user-select: none;
+  }
 }
