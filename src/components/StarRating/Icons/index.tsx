@@ -38,9 +38,7 @@ export type PartialStarProps = HTMLProps<SVGSVGElement> & {
 
 export const PartialStar = memo(
   ({ percentage = 0, className, ...props }: PartialStarProps) => {
-    const ratingPercent = `${percentage}%`;
     const starId = useId();
-    const gradientId = `${starId}-gradient`;
 
     return (
       <svg
@@ -48,13 +46,34 @@ export const PartialStar = memo(
         {...svgProps}
         {...props}
       >
-        <linearGradient id={gradientId} x1={0} x2="100%" y1={0} y2={0}>
-          <stop offset="-50%" stopColor={"#04acbb"} />
-          <stop offset={ratingPercent} stopColor={"#264a9f"} />
-          <stop offset={ratingPercent} stopColor={"#e5e6eb"} />
-          <stop offset={"132%"} stopColor={"#bfc3cf"} />
+        <linearGradient
+          id={`${starId}-greyStar`}
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="144%" stopColor="#bfc3cf" />
+          <stop offset="-76%" stopColor="#e5e6eb" />
         </linearGradient>
-        <path d={starPath} fill={`url(#${gradientId})`} />
+        <linearGradient
+          id={`${starId}-blueStar`}
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="-50%" stopColor="#04acbb" />
+          <stop offset="152%" stopColor="#264a9f" />
+        </linearGradient>
+        <path d={starPath} fill={`url(#${starId}-greyStar)`} />
+        <path
+          d={starPath}
+          fill={`url(#${starId}-blueStar)`}
+          style={{
+            clipPath: `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0% 100%)`,
+          }}
+        />
       </svg>
     );
   }
